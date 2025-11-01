@@ -1,0 +1,50 @@
+{
+  "api": {
+    "name": "StumbleGuys",
+    "version": "1.0.0",
+    "description": "API connection for Stumble server, Photon Cloud and tournament events.",
+    "endpoints": {
+      "auth": "https://sgd.com/api/auth",
+      "photon": "https://sgd.com/api/photon/connect",
+      "events": "https://sgd.com/api/events",
+      "tournaments": "https://sgd.com/api/tournaments",
+      "leaderboard": "https://sgd.com/api/leaderboard"
+    },
+    "api_key": "YOUR_API_KEY_HERE"
+  },
+
+  "photon": {
+    "appIdRealtime": "5f034875-79e7-412d-956d-d28a30583a81",
+    "region": "eu",
+    "useSecureConnection": true,
+    "autoJoinLobby": true,
+    "gameVersion": "0.51.2"
+  },
+
+  "events": {
+    "enabled": true,
+    "updateInterval": 60000,
+    "types": [
+      "daily",
+      "weekly",
+      "tournament",
+      "special"
+    ]
+  },
+
+  "tournaments": {
+    "enabled": true,
+    "maxPlayers": 32,
+    "rewardSystem": {
+      "tokens": 1000,
+      "gems": 5000
+    },
+    "autoStart": true
+  },
+
+  "server": {
+    "status": "online",
+    "maintenance": false,
+    "lastUpdate": "2025-11-01T00:00:00Z"
+  }
+}
