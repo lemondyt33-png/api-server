@@ -1,50 +1,104 @@
 {
   "api": {
-    "name": "StumbleGuys",
-    "version": "1.0.0",
-    "description": "API connection for Stumble server, Photon Cloud and tournament events.",
+    "name": "StumbleDiamantAPI",
+    "version": "0.51.2",
+    "description": "API definition for Stumble multiplayer game: authentication, server sync, photon connection, events & tournaments",
+    "baseUrl": "https://raw.githubusercontent.com/lemondyt33-png/api-server/refs/heads/main/api.json",
     "endpoints": {
-      "auth": "https://sgd.com/api/auth",
-      "photon": "https://sgd.com/api/photon/connect",
-      "events": "https://sgd.com/api/events",
-      "tournaments": "https://sgd.com/api/tournaments",
-      "leaderboard": "https://sgd.com/api/leaderboard"
+      "auth": {
+        "login": "/api/auth/login",
+        "logout": "/api/auth/logout",
+        "refresh": "/api/auth/refresh"
+      },
+      "user": {
+        "profile": "/api/user/profile",
+        "update": "/api/user/update",
+        "stats": "/api/user/stats"
+      },
+      "photon": {
+        "connect": "/api/photon/connect",
+        "disconnect": "/api/photon/disconnect",
+        "joinRoom": "/api/photon/join",
+        "leaveRoom": "/api/photon/leave"
+      },
+      "events": {
+        "list": "/api/events",
+        "details": "/api/events/{eventId}",
+        "register": "/api/events/{eventId}/register"
+      },
+      "tournaments": {
+        "list": "/api/tournaments",
+        "details": "/api/tournaments/{tournamentId}",
+        "join": "/api/tournaments/{tournamentId}/join",
+        "result": "/api/tournaments/{tournamentId}/result"
+      },
+      "leaderboard": {
+        "global": "/api/leaderboard/global",
+        "friends": "/api/leaderboard/friends"
+      },
+      "admin": {
+        "stats": "/api/admin/stats",
+        "maintenance": "/api/admin/maintenance"
+      }
     },
-    "api_key": "YOUR_API_KEY_HERE"
+    "headers": {
+      "authorization": "Bearer <token>",
+      "contentType": "application/json"
+    },
+    "api_key": "YOUR_SECRET_API_KEY"
   },
 
-  "photon": {
+  "photonConfig": {
     "appIdRealtime": "5f034875-79e7-412d-956d-d28a30583a81",
     "region": "eu",
     "useSecureConnection": true,
     "autoJoinLobby": true,
-    "gameVersion": "0.51.2"
+    "gameVersion": "0.51.2",
+    "serverAddress": "YOUR_PHOTON_SERVER_ADDRESS_IF_SELF_HOSTED"
   },
 
-  "events": {
+  "eventsConfig": {
     "enabled": true,
-    "updateInterval": 60000,
+    "updateIntervalMs": 60000,
     "types": [
       "daily",
       "weekly",
-      "tournament",
-      "special"
-    ]
+      "special",
+      "tournament"
+    ],
+    "maxActiveEvents": 5
   },
 
-  "tournaments": {
+  "tournamentsConfig": {
     "enabled": true,
-    "maxPlayers": 32,
+    "defaultBracketSize": 32,
+    "maxPlayers": 256,
     "rewardSystem": {
-      "tokens": 1000,
-      "gems": 5000
+      "rank1": { "coins": 5000, "gems": 200 },
+      "rank2": { "coins": 3000, "gems": 100 },
+      "rank3": { "coins": 1000, "gems": 50 }
     },
-    "autoStart": true
+    "autoStart": true,
+    "registrationDeadlineMinutes": 30
   },
 
-  "server": {
-    "status": "online",
+  "serverStatus": {
+    "mode": "online",
     "maintenance": false,
-    "lastUpdate": "2025-11-01T00:00:00Z"
+    "lastUpdate": "2025-11-01T00:00:00Z",
+    "minClientVersion": "1.0.0"
+  },
+
+  "logging": {
+    "level": "info",      /* possible values: debug, info, warn, error */
+    "logToFile": true,
+    "filePath": "/var/logs/stumble-api.log"
+  },
+
+  "features": {
+    "chatEnabled": true,
+    "voiceEnabled": false,
+    "matchmakingEnabled": true,
+    "crossPlatform": true
   }
 }
